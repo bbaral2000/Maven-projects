@@ -30,9 +30,9 @@
           <jsp:setProperty property="pid" name="product" value="${cartitem.pid}"/> --%>
              <td><form:checkbox path="itemsList" name="getitem" value="${cartitem}"/>
              </td>
-             <td>${cartitem}</td>
-             <%-- <td>${cartitem.desc}</td>
-             <td>${cartitem.price}</td> --%>
+             <td>${cartitem.name}</td>
+              <td>${cartitem.desc}</td>
+             <td>${cartitem.price}</td> 
              
           </tr>   
        </c:forEach>

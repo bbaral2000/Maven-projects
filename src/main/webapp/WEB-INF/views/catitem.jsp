@@ -8,15 +8,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-${array}
 
 
 
-<%-- <c:forEach items="${cartitem}" var="citem"> --%>
-<%-- ${citem.price} --%>
-<%-- ${citem.name} --%>
-<%-- ${citem.desc} --%>
-<%-- </c:forEach> --%>
+
+<c:forEach items="${array}" var="citem">
+${citem.price}
+${citem.name}
+${citem.desc}
+</c:forEach> 
 
 </body>
 </html>

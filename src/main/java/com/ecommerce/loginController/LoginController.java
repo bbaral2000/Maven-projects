@@ -71,7 +71,7 @@ public class LoginController {
 		//model.clear();
 		
 		ListOfItems loi= new ListOfItems();
-		loi.setItemsList(new ArrayList<String>());
+		loi.setItemsList(new ArrayList<cart>());
 		model.addAttribute("listOfItems", loi);
 		model.addAttribute("list", serv.retrivecart(name));
 		List<cart> cart = new ArrayList<cart>();
@@ -81,10 +81,10 @@ public class LoginController {
 		
 	}
 	@RequestMapping (value="/mycart",method=RequestMethod.POST)
-	public String cartpop(ModelMap model, @ModelAttribute("listOfItems")ListOfItems arr){
-		System.out.println(arr.getItemsList().get(0));
+	public String cartpop(ModelMap model, @ModelAttribute("listOfItems")ListOfItems loi){
+		System.out.println(loi.getItemsList());
 		//List<cart> cart = new ArrayList<cart>();
-		model.addAttribute("array",arr);
+		model.addAttribute("array",loi.getItemsList());
 		
 		return "catitem";
 		

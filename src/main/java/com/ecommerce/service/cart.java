@@ -9,8 +9,23 @@ public class cart {
 	private String name, desc, catagory;
 	private int price;
 	
+	
+	public cart(String cartStringObj)
+	{
+		this(cartStringObj.split(","));
+	}
+	
+	public cart(String[] cartParam) {
+
+		this.pid = Integer.parseInt(cartParam[0]);;
+		this.name = cartParam[1];
+		this.desc = cartParam[2];
+		this.catagory = cartParam[3];
+		this.price = Integer.parseInt(cartParam[4]);
+	}
+	
 	public cart(int pid, String name, String desc, int price, String catagory) {
-		super();
+
 		this.pid = pid;
 		this.name = name;
 		this.desc = desc;
@@ -22,6 +37,7 @@ public class cart {
 	public cart() {
 	
 	}
+
 
 	public int getPid() {
 		return pid;
