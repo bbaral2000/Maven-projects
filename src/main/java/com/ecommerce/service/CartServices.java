@@ -21,8 +21,8 @@ public class CartServices {
 
 	
 	
-    public List<String> retrivecart(String catagory){
-    	List<String> cartitems= new ArrayList<String>();
+    public List<cart> retrivecart(String catagory){
+    	List<cart> cartitems= new ArrayList<cart>();
 		try {
 			Connection con=connect1.connect();
 			PreparedStatement ps= con.prepareStatement("select * from cart.products where catagory= ? ");
@@ -30,7 +30,7 @@ public class CartServices {
 			ResultSet rs= ps.executeQuery();
 			while (rs.next()){
 				
-				cartitems.add((new cart(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getString(5)).toString()));
+				cartitems.add(new cart(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getString(5)));
 				System.out.println();
 			}
 			con.close();
