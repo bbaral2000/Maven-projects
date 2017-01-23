@@ -17,6 +17,12 @@
             <value>.jsp</value>
         </property>
     </bean>
+    
+    
+<!--     <bean class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration" />
+
+    <bean class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" /> -->
+    
          <!--  <mvc:resources mapping="/webjars/**" location="/webjars/"/> -->
         <mvc:annotation-driven />
 

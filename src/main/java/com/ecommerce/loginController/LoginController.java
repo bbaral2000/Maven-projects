@@ -8,22 +8,22 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.connection.RedisClusterNode.LinkState;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.ecommerce.DBConnection.LoginServices;
 import com.ecommerce.service.CartServices;
 import com.ecommerce.service.ListOfItems;
 import com.ecommerce.service.cart;
 
-
-
-
 @Controller	
+@SessionAttributes("savedSessionCart")
 public class LoginController {
 	
 	@Autowired
@@ -67,25 +67,31 @@ public class LoginController {
 	
 	
 	@RequestMapping (value="/shoping-iteams",method=RequestMethod.GET)
-	public String cartPage(ModelMap model,@RequestParam String name){ 
+	public String cartPage(ModelMap model, @RequestParam String name){//, @ModelAttribute("savedSessionCart") List<cart> savedSessionCart 
 		//model.clear();
 		
 		ListOfItems loi= new ListOfItems();
-		loi.setItemsList(new ArrayList<String>());
+		
+		List<cart> savedSessionCart= (List<cart>) model.get("savedSessionCart");
+		System.out.println((savedSessionCart==null || savedSessionCart.isEmpty())?"isNull Or Empty":savedSessionCart.get(0));
+		
+		loi.setItemsList(savedSessionCart!=null?savedSessionCart:new ArrayList<cart>());
 		model.addAttribute("listOfItems", loi);
 		model.addAttribute("list", serv.retrivecart(name));
 		List<cart> cart = new ArrayList<cart>();
-		//model.addAttribute("obj", cart);
+
 		model.put("name",name);
 		return "items"; 
 		
 	}
-	@RequestMapping (value="/mycart",method=RequestMethod.POST)
-	public String cartpop(ModelMap model, @ModelAttribute("listOfItems")ListOfItems arr){
-		System.out.println(arr.getItemsList().get(0));
-		//List<cart> cart = new ArrayList<cart>();
-		model.addAttribute("array",arr);
+	@RequestMapping (value="/mycart")
+	public String cartpop(ModelMap model, @ModelAttribute("listOfItems")ListOfItems loi){
+		System.out.println(loi.getItemsList());
 		
+		List<cart> cartList = loi.getItemsList();
+		
+		if(cartList!=null)
+			model.addAttribute("savedSessionCart",cartList);		
 		return "catitem";
 		
 		
