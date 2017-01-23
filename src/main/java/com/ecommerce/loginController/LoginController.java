@@ -2,6 +2,8 @@ package com.ecommerce.loginController;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,8 +25,13 @@ import com.ecommerce.service.ListOfItems;
 import com.ecommerce.service.cart;
 
 @Controller	
-@SessionAttributes("savedSessionCart")
+@SessionAttributes({"savedSessionCart", "name"})
 public class LoginController {
+	
+	boolean b=true;
+	{
+		System.out.println("Init");
+	}
 	
 	@Autowired
 	LoginServices valid;
@@ -73,7 +80,7 @@ public class LoginController {
 		ListOfItems loi= new ListOfItems();
 		
 		List<cart> savedSessionCart= (List<cart>) model.get("savedSessionCart");
-		System.out.println((savedSessionCart==null || savedSessionCart.isEmpty())?"isNull Or Empty":savedSessionCart.get(0));
+		//System.out.println((savedSessionCart==null || savedSessionCart.isEmpty())?"isNull Or Empty":savedSessionCart.get(0));
 		
 		loi.setItemsList(savedSessionCart!=null?savedSessionCart:new ArrayList<cart>());
 		model.addAttribute("listOfItems", loi);
@@ -84,17 +91,42 @@ public class LoginController {
 		return "items"; 
 		
 	}
+	
 	@RequestMapping (value="/mycart")
 	public String cartpop(ModelMap model, @ModelAttribute("listOfItems")ListOfItems loi){
-		System.out.println(loi.getItemsList());
-		
+		//System.out.println(loi.getItemsList());
 		List<cart> cartList = loi.getItemsList();
+	
+		if(cartList==null)	
+			cartList= new ArrayList<cart>();			
 		
-		if(cartList!=null)
-			model.addAttribute("savedSessionCart",cartList);		
+		if(model.get("savedSessionCart")!=null)
+		{
+			List<cart> savedSessionCart= (List<cart>) model.get("savedSessionCart");
+			String itemTypeName=  (String) model.get("name");
+			cartList.addAll((removeCurrentCategoryItems(itemTypeName, savedSessionCart)));
+		}
+		model.addAttribute("savedSessionCart",cartList);
+		
+		System.out.println("hello");
+				
 		return "catitem";
 		
 		
+	}
+
+	private List<cart> removeCurrentCategoryItems(String currentItemType,List<cart> savedSessionCart) {
+		// TODO Auto-generated method stub
+		Iterator<cart> cartIterator = savedSessionCart.iterator();
+		while(cartIterator.hasNext())
+		{
+			cart c=cartIterator.next();
+			if(c.getCatagory().equals(currentItemType))
+			{
+				cartIterator.remove();
+			}
+		}
+		return savedSessionCart;
 	}
 
 }
