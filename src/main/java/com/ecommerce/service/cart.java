@@ -24,7 +24,7 @@ public class cart {
 		this.price = Integer.parseInt(cartParam[4]);
 	}
 	
-	public cart(int pid, String name, String desc, int price, String catagory) {
+	public cart(int pid, String name, String catagory, int price, String desc) {
 
 		this.pid = pid;
 		this.name = name;
@@ -38,6 +38,14 @@ public class cart {
 	
 	}
 
+
+	public String getCatagory() {
+		return catagory;
+	}
+
+	public void setCatagory(String catagory) {
+		this.catagory = catagory;
+	}
 
 	public int getPid() {
 		return pid;
