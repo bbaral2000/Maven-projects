@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+ <form:form action="/mycart" method="post" modelAttribute="listOfItems">
 <table>
      <caption>${name} items are here</caption>
      <thead>
@@ -23,7 +23,7 @@
 
       <tbody>
       
-      <form:form action="/mycart" method="post" modelAttribute="listOfItems">
+     
        <c:forEach items="${list}" var="cartitem" varStatus="counter">
           <tr>
          <%--  <jsp:useBean id="product" type="com.ecommerce.service.cart" class="com.ecommerce.service.cart"/>
@@ -37,8 +37,9 @@
           </tr>   
        </c:forEach>
        <input type="submit" value="addTo cart"/>
-       </form:form>
+       
      </tbody>
 </table>
+</form:form>
 </body>
 </html>

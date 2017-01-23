@@ -9,10 +9,7 @@
 </head>
 <body>
 
-
-
-
-<c:forEach items="${array}" var="citem">
+<c:forEach items="${savedSessionCart}" var="citem">
 ${citem.price}
 ${citem.name}
 ${citem.desc}
