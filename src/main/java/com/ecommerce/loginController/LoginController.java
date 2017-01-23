@@ -89,6 +89,9 @@ public class LoginController {
 		System.out.println(loi.getItemsList());
 		
 		List<cart> cartList = loi.getItemsList();
+		ListOfItems l2= new ListOfItems();
+		model.addAttribute("cartlist",l2);
+		
 		
 		if(cartList!=null)
 			model.addAttribute("savedSessionCart",cartList);		

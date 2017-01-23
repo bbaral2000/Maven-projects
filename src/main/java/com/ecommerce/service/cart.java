@@ -34,10 +34,6 @@ public class cart {
 	}
 	
 
-	public cart() {
-	
-	}
-
 
 	public int getPid() {
 		return pid;
